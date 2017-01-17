@@ -2,16 +2,25 @@ var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-  entry: { admin: "./resources/assets/js/app.js" },
+  entry: { app: "./resources/assets/js/app.js" },
   output: {
-    path: __dirname + "/public/js",
-    publicPath: "/js/",
+    path: __dirname + "/public/assets",
+    publicPath: "/assets/",
     filename: "[name].entry.js",
     chunkFilename: "[name].chunk.js"
   },
   module: {
     loaders: [
-      { test: /\.vue$/, loader: "vue" },
+      {
+        test: /\.vue$/,
+        loader: "vue",
+        options: {
+          loaders: {
+            "scss": "vue-style-loader!css-loader!sass-loader",
+            "sass": "vue-style-loader!css-loader!sass-loader?indentedSyntax"
+          }
+        }
+      },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loader: "url?limit=10000!img?progressive=true"
